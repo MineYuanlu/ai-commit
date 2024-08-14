@@ -1,0 +1,22 @@
+Repository Description:
+
+The ai-commit tool is designed to generate conventional commit messages by combining the staged changes in a target Git repository. The tool analyzes the staged diffs and creates a comprehensive commit prompt.
+
+Project Structure:
+
+    README.md: Documentation file explaining the usage, setup, and details of the ai-commit tool.
+    src/entry.py: Main entry point for the tool, handling the generation of the prompt message based on the current staged changes.
+    src/git.py: Contains the logic for interacting with the Git repository, fetching staged diffs, and managing Git-related operations.
+    src/prompt.py: Responsible for generating the prompt text based on predefined templates and rules.
+    run.bash: Bash script to run the ai-commit tool from the command line.
+
+Core Logic:
+
+    Staged Diff Analysis: The tool starts by checking for any staged changes in the Git repository.
+    Prompt Generation: The tool generates a commit message prompt based on the conventional commit style.
+    Custom Prompts: The tool looks for any custom prompt files in the repository and includes their content if found.
+    Output: The generated prompt is saved to a talk.txt file in the talks directory.
+
+Usage:
+
+Run the ai-commit tool by executing the run.bash script, which will process the staged changes in the repository and generate a suitable commit message prompt.
