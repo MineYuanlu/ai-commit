@@ -49,3 +49,14 @@ def generatePrompt(
         commitTypes[type],
         specifyCommitFormat(type),
     ] if x)
+
+
+def generateGitLogPrompt(
+    logs: "str|list[str]",
+):
+    msg = """The following are commit messages from a git repository. Focus on the commit messages that start with $, as these follow the correct conventional style, including a type and a brief description of the change. Other messages might not follow the standard format and simply provide a general idea of the change. Identify and prioritize the $-prefixed messages as examples of the correct style.\n"""
+    if isinstance(logs, list):
+        logs = "\n".join(logs)
+    if not logs.strip():
+        return None
+    return msg + logs

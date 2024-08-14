@@ -1,4 +1,4 @@
-from prompt import generatePrompt
+from prompt import generatePrompt, generateGitLogPrompt
 from git import Git
 from loguru import logger
 import sys
@@ -36,6 +36,10 @@ def getTalk(git_dir="."):
     custom = getCustomPrompt(git.work_dir)
     if custom:
         values.append(f"<repo>\n{custom}\n</repo>")
+
+    commit_log = generateGitLogPrompt(git.get_recent_commits(10))
+    if commit_log:
+        values.append(f"<repo>\n{commit_log}\n</repo>")
 
     values.append(("-" * 30) + "Be sure to think carefully!" + ("-" * 30))
 

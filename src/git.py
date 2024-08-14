@@ -1,6 +1,5 @@
 import subprocess
 import os
-import sys
 from loguru import logger
 from typing import TypedDict
 
@@ -68,3 +67,22 @@ class Git:
     def get_detected_message(self, files: list):
         file_count = len(files)
         return f"Detected {file_count} staged file{'s' if file_count > 1 else ''}"
+
+    def get_recent_commits(self, max_count=5) -> "list[str]":
+        """
+        获取当前分支最近的最多 max_count 条提交信息。
+
+        Args:
+            max_count (int): 获取的最大提交数，默认为5。
+
+        Returns:
+            list[str]: 每个元素包含提交哈希和提交信息。
+        """
+        command = [
+            'git',
+            'log',
+            f'--pretty=format:%h %s',
+            f'-n {max_count}'
+        ]
+        commits = self.run_git_command(command)
+        return commits.split('\n')
