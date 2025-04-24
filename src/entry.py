@@ -1,6 +1,5 @@
 from prompt import generatePrompt, generateGitLogPrompt
 from git import Git
-from loguru import logger
 import sys
 import os
 
@@ -26,7 +25,7 @@ def getTalk(git_dir="."):
     if not staged:
         raise RuntimeError("No staged changes found. Stage your changes manually")
 
-    logger.info(git.get_detected_message(staged['files']))
+    print(git.get_detected_message(staged['files']))
 
     values: "list[str]" = []
 
@@ -56,4 +55,4 @@ if __name__ == "__main__":
 
     with open(output_file, 'w+') as f:
         f.write(talk)
-    logger.success("talk write to: {}", output_file)
+    print(f"\033[32mtalk write to: {output_file}\033[0m")

@@ -1,6 +1,5 @@
 import subprocess
 import os
-from loguru import logger
 from typing import TypedDict
 
 
@@ -24,12 +23,12 @@ class Git:
     def __init__(self, work_dir=".", git_dir: str = None) -> None:
         self.work_dir = os.path.abspath(work_dir)
         self.git_dir = os.path.join(self.work_dir, '.git') if git_dir is None else git_dir
-        logger.info("[Git] Work Dir: {}, Git Dir: {}", self.work_dir, self.git_dir)
+        print(f"[Git] Work Dir: {self.work_dir}, Git Dir: {self.git_dir}")
 
     def run_git_command(self, command: "list[str]"):
         assert command[0] == 'git'
         command = ['git', f"--git-dir={self.git_dir}", f"--work-tree={self.work_dir}"] + list(command)[1:]
-        logger.debug("[Git] Run Command: {}", " ".join(str(c) for c in command))
+        print(f"\033[34m[Git] Run Command: {' '.join(str(c) for c in command)}\033[0m")
         try:
             result = subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
             return result.stdout.strip()
